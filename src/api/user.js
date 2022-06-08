@@ -1,12 +1,19 @@
 import axios from '@/libs/api.request'
 
+export const register = () => {
+  return axios.request({
+    url: 'Authenticate/register',
+    method: 'post'
+  })
+}
+
 export const login = ({ userName, password }) => {
   const data = {
     userName,
     password
   }
   return axios.request({
-    url: 'login',
+    url: 'Authenticate/login',
     data,
     method: 'post'
   })
@@ -14,7 +21,7 @@ export const login = ({ userName, password }) => {
 
 export const getUserInfo = (token) => {
   return axios.request({
-    url: 'get_info',
+    url: 'Authenticate/get_info',
     params: {
       token
     },
@@ -24,8 +31,11 @@ export const getUserInfo = (token) => {
 
 export const logout = (token) => {
   return axios.request({
-    url: 'logout',
-    method: 'post'
+    url: 'Authenticate/logout',
+    method: 'post',
+    params: {
+      token
+    }
   })
 }
 
