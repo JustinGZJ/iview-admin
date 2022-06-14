@@ -71,6 +71,25 @@ export default [
     ]
   },
   {
+    path: '/testdata',
+    name: 'testdata',
+    component: Main,
+    meta: {
+      hideInBread: true
+    },
+    children: [
+      {
+        path: 'testdata_page',
+        name: 'testdata_page',
+        meta: {
+          icon: 'md-grid',
+          title: '测试数据'
+        },
+        component: () => import('@/view/testdata/testdata.vue')
+      }
+    ]
+  },
+  {
     path: '/components',
     name: 'components',
     meta: {
@@ -325,6 +344,7 @@ export default [
       }
     ]
   },
+
   {
     path: '/directive',
     name: 'directive',
@@ -344,6 +364,7 @@ export default [
       }
     ]
   },
+
   {
     path: '/multilevel',
     name: 'multilevel',
