@@ -25,24 +25,20 @@ export const set_station_info = ({ id, name, keys, metaData }) => {
     }
   })
 }
-// 获取当前站的所有数据
-export const get_station_data = ({ stationId }) => {
-  return axios.request({
-    url: `stations/${stationId}/TestData`,
-    method: 'GET'
-  })
-}
 
 // 获取时间段内当前站的所有数据
-export const get_station_data_by_timespan = ({ stationId, begin, end }) => {
+export const get_station_data = ({ stationId, From, To, PageNumber, PageSize }) => {
   return axios.request({
-    url: `stations/${stationId}/TestData/${begin}/${end}`,
+    url: `stations/${stationId}/TestData/dynamic`,
+    params: {
+      From, To, PageNumber, PageSize
+    },
     method: 'GET'
   })
 }
 // 上传测试数据
 export const upload_test_data = ({ data }) => {
-  let stationId = data.stationId
+  let { stationId } = data
   return axios.request({
     url: `stations/${stationId}/TestData`,
     method: 'POST',
