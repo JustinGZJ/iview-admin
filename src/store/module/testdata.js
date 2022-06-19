@@ -3,7 +3,7 @@ import {
   // get_station_info,
   // set_station_info,
   // get_station_data,
-  get_station_data_by_timespan
+  get_station_data
   // upload_test_data
 } from '@/api/testdata'
 // import { setToken, getToken } from '@/libs/util'
@@ -12,18 +12,18 @@ export default {
   state: {
     station_infos: [],
     station_data: [],
-    station_info: {},
+    current_station_info: {},
     stationName: ''
   },
   mutations: {
     setStationsInfo (state, infos) {
       state.station_infos = infos
     },
-    setStationData (state, datas) {
-      state.station_data = datas
+    setStationData (state, data) {
+      state.station_data = data
     },
     setStationInfo (state, info) {
-      state.station_info = info
+      state.current_station_info = info
     }
   },
   getters: {},
@@ -44,12 +44,10 @@ export default {
         }
       })
     },
-    getStationData ({ state, commit }, { begin, end }) {
+    getStationData ({ state, commit }, { stationId, From, To, PageNumber, PageSize }) {
       return new Promise((resolve, reject) => {
         try {
-          const { station_info } = state
-          const { Id } = station_info
-          get_station_data_by_timespan({ Id, begin, end })
+          get_station_data({ stationId, From, To, PageNumber, PageSize })
             .then(res => {
               const data = res.data
               commit('setStationData', data)

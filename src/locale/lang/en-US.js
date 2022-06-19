@@ -42,5 +42,13 @@ export default {
   tree_table_page: 'Tree Table',
   org_tree_page: 'Org Tree',
   drag_drawer_page: 'Draggable Drawer',
-  tree_select_page: 'Tree Selector'
+  tree_select_page: 'Tree Selector',
+  testdata_page: 'Test Data',
+  rbac: 'User & Role',
+  rbac_user_page: 'User Management',
+  rbac_role_page: 'Role Management',
+  rbac_permission_page: 'Permission Management',
+  rbac_menu_page: 'Menu Management',
+  rbac_icon_page: 'Icon Management',
+  rbac_role_permission_page: 'Role & Permission'
 }

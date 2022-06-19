@@ -89,6 +89,78 @@ export default [
       }
     ]
   },
+  // {
+  //   path: '/rbac',
+  //   name: 'rbac',
+  //   component: Main,
+  //   meta: {
+  //     hideInBread: true
+  //   },
+  //   children: [
+  //     {
+  //       path: 'icon_page',
+  //       name: 'icon_page',
+  //       meta: {
+  //         icon: 'md-grid',
+  //         title: '图标管理'
+  //       },
+  //       component: () => import('@/view/rbac/icon')
+  //     },
+  //     {
+  //       path: 'rbac_user_page',
+  //       name: 'rbac_user_page',
+  //       meta: {
+  //         icon: 'md-grid',
+  //         title: '用户管理'
+  //       },
+  //       component: () => import('@/view/rbac/user')
+  //     },
+  //     {
+  //       path: 'rbac_role_page',
+  //       name: 'rbac_role_page',
+  //       meta: {
+  //         icon: 'md-grid',
+  //         title: '角色管理'
+  //       },
+  //       component: () => import('@/view/rbac/role')
+  //     },
+  //     {
+  //       path: 'rbac_menu_page',
+  //       name: 'rbac_menu_page',
+  //       meta: {
+  //         icon: 'md-grid',
+  //         title: '菜单管理'
+  //       },
+  //       component: () => import('@/view/rbac/menu')
+  //     },
+  //     {
+  //       path: 'rbac_permission_page',
+  //       name: 'rbac_permission_page',
+  //       meta: {
+  //         icon: 'md-grid',
+  //         title: '权限管理'
+  //       },
+  //       component: () => import('@/view/rbac/permission')
+  //     }, {
+  //       path: 'rbac_role_page',
+  //       name: 'rbac_role_page',
+  //       meta: {
+  //         icon: 'md-grid',
+  //         title: '角色管理'
+  //       },
+  //       component: () => import('@/view/rbac/role')
+  //     },
+  //     {
+  //       path: 'rbac_role_permission_page',
+  //       name: 'rbac_role_permission_page',
+  //       meta: {
+  //         icon: 'md-grid',
+  //         title: '角色权限管理'
+  //       },
+  //       component: () => import('@/view/rbac/role-permission')
+  //     }
+  //   ]
+  // },
   {
     path: '/components',
     name: 'components',
@@ -160,15 +232,6 @@ export default [
           title: '图片裁剪'
         },
         component: () => import('@/view/components/cropper/cropper.vue')
-      },
-      {
-        path: 'tables_page',
-        name: 'tables_page',
-        meta: {
-          icon: 'md-grid',
-          title: '多功能表格'
-        },
-        component: () => import('@/view/components/tables/tables.vue')
       },
       {
         path: 'split_pane_page',

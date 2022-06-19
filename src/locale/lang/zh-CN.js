@@ -42,5 +42,13 @@ export default {
   tree_table_page: '树状表格',
   org_tree_page: '组织结构树',
   drag_drawer_page: '可拖动抽屉',
-  tree_select_page: '树状下拉选择器'
+  tree_select_page: '树状下拉选择器',
+  testdata_page: '测试数据',
+  rbac: '用户及授权',
+  rbac_user_page: '用户管理',
+  rbac_role_page: '角色管理',
+  rbac_permission_page: '权限管理',
+  rbac_menu_page: '菜单管理',
+  rbac_icon_page: '图标管理',
+  rbac_role_permission_page: '角色权限分配'
 }
