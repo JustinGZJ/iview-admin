@@ -46,20 +46,13 @@ export const upload_test_data = ({ data }) => {
   })
 }
 
-// {
-//   "id": "232fdb5e-ae6f-1738-7b04-e85cfdd53765",
-//   "dateTime": "1969-06-05T03:15:46.870Z",
-//   "code": "nostrud laboris esse",
-//   "metaData": "proident culpa sint reprehenderit sed",
-//   "stationId": "6551b011-1c32-ff87-0383-a5a21ea9fd34",
-//   "testItems": [
-//   {
-//     "name": "culpa dolore aute eu",
-//     "value": "et amet ipsum"
-//   },
-//   {
-//     "name": "consectetur in nulla",
-//     "value": "elit ut incididunt"
-//   }
-// ]
-// }
+export const exportExcel = ({ stationId, From, To }) => {
+  return axios.request({
+    url: `stations/${stationId}/TestData/csv`,
+    method: 'GET',
+    params: {
+      From, To
+    },
+    responseType: 'blob' // 下载文件
+  })
+}
