@@ -28,20 +28,13 @@ export default {
       'getUserInfo'
     ]),
     handleSubmit ({ userName, password }) {
-      try {
-        this.handleLogin({ userName, password }).then(res => {
-          this.getUserInfo().then(res => {
-            this.$router.push({
-              name: this.$config.homeName
-            })
-          }).catch(err => {
-            this.$Message.error(err)
+      this.handleLogin({ userName, password }).then(res => {
+        this.getUserInfo().then(res => {
+          this.$router.push({
+            name: this.$config.homeName
           })
         })
-      } catch (e) {
-        debugger
-        this.$Message.error(e)
-      }
+      })
     }
   }
 }

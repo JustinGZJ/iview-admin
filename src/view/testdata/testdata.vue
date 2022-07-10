@@ -16,14 +16,12 @@
             <DatePicker type="datetime" :value="dtFrom"  @on-change="dtFrom=$event" format="yyyy-MM-dd HH:mm" placeholder="请选择起始时间" style="width: 200px"></DatePicker>
           结束时间
             <DatePicker type="datetime" :value="dtTo"   @on-change="dtTo=$event" format="yyyy-MM-dd HH:mm" placeholder="请选择结束时间" style="width: 200px"></DatePicker>
-            <Button style="margin: 0 10px;" type="primary" @click="handleQueryClicked">查询</Button>
-            <Button style="margin: 0 10px;"  icon="ios-download-outline"  @click="exportExcel">导出文件</Button>
+            <Button @click="handleQueryClicked">查询</Button>
         </header>
         <content>
         <Card>
-          <tables ref="tables" v-model="tableData" :columns="columns"/>
-          <page show-total :total="pageParams.totalCount" :page-size="pageSize"  @on-change="handlePageChanged"></page>
-
+          <tables ref="tables" editable searchable search-place="top" v-model="tableData" :columns="columns" @on-delete="handleDelete"/>
+          <Button style="margin: 10px 0;" type="primary" @click="exportExcel">导出为Csv文件</Button>
         </Card>
         </content>
       </layout>
@@ -32,8 +30,9 @@
 
 <script>
 import Tables from '_c/tables'
-import { exportExcel } from '@/api/testdata'
+// import { getTableData } from '@/api/data'
 import { mapActions, mapMutations, mapState } from 'vuex'
+// import { get_all_stations_info } from '@/api/testdata'
 export default {
   name: 'testdata_page',
   components: {
@@ -46,14 +45,14 @@ export default {
       tableData: [],
       dtFrom: new Date(new Date().setDate(new Date().getDate() - 1)),
       dtTo: new Date(),
+      pageNum: 1,
       pageSize: 20
     }
   },
   methods: {
 
     ...mapMutations([
-      'setStationInfo',
-      'setPageParams']
+      'setStationInfo']
     ),
     ...mapActions([
       'getAllStationInfo',
@@ -61,14 +60,9 @@ export default {
     handleDelete (params) {
       console.log(params)
     },
-    handlePageChanged (page) {
-      console.log(`page` + page)
-      this.queryData(page)
-    },
     handleStationChanged (e) {
       console.log(e)
       this.tableData = []
-      this.setPageParams({ totalCount: 0 })
       const station_info = this.station_infos.find(x => x.name === e)
       this.columns = [{ title: '二维码', key: 'Code' }, { title: '时间', key: 'DateTime' }]
       this.setStationInfo(station_info)
@@ -79,42 +73,17 @@ export default {
     },
     handleQueryClicked () {
       console.log('查询已点击')
-      this.queryData(1)
-    },
-    queryData (PageNumber) {
       this.tableData = []
       let { id } = this.current_station_info
-      this.getStationData({
-        stationId: id,
-        From: this.dtFrom,
-        To: this.dtTo,
-        PageNumber: PageNumber,
-        PageSize: this.pageSize }).then(data => {
+      this.getStationData({ stationId: id, From: this.dtFrom, To: this.dtTo, PageNumber: 1, PageSize: 20 }).then(data => {
         console.log(data)
         this.tableData = data
       })
     },
     exportExcel () {
-      let { id } = this.current_station_info
-      exportExcel({
-        stationId: id,
-        From: this.dtFrom,
-        To: this.dtTo })
-        .then(res => {
-          console.log(res)
-          // 地址转换
-          let url = window.URL.createObjectURL(res.data)
-          // 文件名
-          let fileName = `${this.dtFrom}-${this.dtTo}.csv`
-          const a = document.createElement('a')
-          a.setAttribute('href', url)
-          a.setAttribute('download', fileName)
-          document.body.append(a)
-          a.click()
-          document.body.removeChild(a)
-        }).catch(err => {
-          this.$Message.error(err)
-        })
+      this.$refs.tables.exportCsv({
+        filename: `table-${(new Date()).valueOf()}.csv`
+      })
     }
   },
   computed: {
@@ -122,8 +91,7 @@ export default {
     ...mapState({
       station_infos: state => state.testdata.station_infos,
       station_data: state => state.testdata.station_data,
-      current_station_info: state => state.testdata.current_station_info,
-      pageParams: state => state.testdata.pageParams
+      current_station_info: state => state.testdata.current_station_info
     }) },
   mounted () {
     this.getAllStationInfo().then(infos => {
@@ -137,7 +105,7 @@ export default {
 .layout{
   border: 1px solid #d7dde4;
   background: #f5f7f9;
-  position: relative;
+  /*position: relative;*/
   border-radius: 4px;
   overflow: hidden;
 }
